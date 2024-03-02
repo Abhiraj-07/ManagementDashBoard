@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>login</title>
+    <link rel="stylesheet" href="/css/login.css" />
+  </head>
+
+  <body>
+    <form onsubmit="login()">
+      <div class="imgcontainer">
+        <img
+          src="images/personlogo.webp"
+          alt="Avatar"
+          id="personlogo"
+          class="avatar"
+        />
+      </div>
+
+      <div class="container">
+        <label for="uname"><b>Username</b></label>
+        <input
+          type="text"
+          placeholder="Enter Username"
+          name="uname"
+          required
+          id="email"
+        />
+
+        <label for="psw"><b>Password</b></label>
+        <input
+          type="password"
+          placeholder="Enter Password"
+          name="psw"
+          required
+          id="password"
+        />
+
+        <button type="submit">Login</button>
+        <label>
+          <input type="checkbox" checked="checked" name="remember" /> Remember
+          me
+        </label>
+      </div>
+
+      <div class="container" style="background-color: #f1f1f1">
+        <button type="button" class="cancelbtn">Cancel</button>
+        <span class="psw">Forgot <a href="#">password?</a></span>
+      </div>
+    </form>
+
+    <script>
+      localStorage.setItem("password", "");
+      localStorage.setItem("email", "");
+      let login = () => {
+        let password = localStorage.getItem("password");
+        let email = localStorage.getItem("email");
+        let passworduser = document.getElementById("email");
+        let emailuser = document.getElementById("password");
+
+        console.log(password.isString());
+        console.log(email.isString());
+        console.log(passworduser.isString());
+        console.log(emailuser.isString());
+
+        // if (password == passworduser && email == emailuser) {
+        //   window.location.href = "http://localhost:3000";
+
+        // }
+      };
+    </script>
+  </body>
+</html>

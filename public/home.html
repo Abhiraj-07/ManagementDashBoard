@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Management Dashboard UI</title>
+    <link rel="stylesheet" href="css/home.css" />
+  </head>
+  <body onload="readAllData()">
+    <h1 class="title">you are going Great</h1>
+    <div class="task-manager">
+      <div class="task-bar">
+        <div id="box">
+          <div id="butto-boxes">
+            <button onclick="OpenBox()">CREATE A TASK</button>
+            <button id="CloseBox" onclick="CloseBox()">Close</button>
+          </div>
+          <div id="small-box">
+            <form id="create-form" onsubmit="createTask()">
+              <label for="taskpriority"> task priority:</label><br />
+              <input
+                type="number"
+                id="taskpriority"
+                name="taskpriority"
+              /><br />
+
+              <input type="hidden" id="idtask" name="idtask" value="1" /><br />
+
+              <label for="task">task :</label><br />
+
+              <input type="text" id="task" name="task" /><br />
+              <label for="lastdate">last date :</label><br />
+              <input type="date" id="lastdate" name="lastdate" /><br />
+              <label for="status">Status :</label><br />
+              <input type="text" id="status" name="status" /><br />
+              <input type="submit"/>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="task-total">
+        <ul id="list">
+          <!-- <li>
+            <span> task-1</span>
+            <span class="status">COMPLETED</span>
+          </li>
+          <li>
+            <span> task-2</span>
+            <span class="status">COMPLETED</span>
+          </li>
+          <li>
+            <span> task-3</span>
+            <span class="status">COMPLETED</span>
+          </li>
+          <li>
+            <span> task-4</span>
+            <span class="status">COMPLETED</span>
+          </li>
+          <li>
+            <span> task-5</span>
+            <span class="status">COMPLETED</span>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+    <div id="person">
+      <img src="images/personlogo.webp" alt="" srcset="" />
+    </div>
+    <script>
+      let data = [
+        {
+          id: 10,
+          task: "task",
+          taskpriority: 2,
+          status: "ongoing",
+        },
+      ];
+      let createTask = () => {
+        console.log("started create task ");
+        let usertask = document.getElementById("task");
+        let usertaskpriority = document.getElementById("taskpriority");
+        let userstatus = document.getElementById("status");
+        let userlastdate = document.getElementById("lastdate");
+        let object = {
+          id: 2,
+          taskpriority: usertaskpriority,
+          task: usertask,
+          status: userstatus,
+          lastdate: userlastdate,
+        };
+        console.log(object);
+        data.push(object);
+        readAllData();
+        CloseBox();
+      };
+      let readAllData = () => {
+        console.log("read data");
+        let object = localStorage.getItem("object");
+        if (object === null) {
+          console.log("empty");
+
+          let list = (document.getElementById("list").innerHTML =
+            "<li>Empty </li>");
+        } else {
+          let objData = JSON.parse(object);
+          let ele = " ";
+          objData.map((record) => {
+            ele +
+              `<li>
+            <span>${record.priority}</span>
+            <span>${record.task}</span>
+            <span class="status">${record.status}</span>
+            <span class="date">${record.lastdate}</span>
+            <span class="button" onclick={edit(${record.id})} >Edit</span>
+            <span class="button" onclick={deleteTask(${record.id})} >Delete<span>
+          </li>`;
+          });
+          console.log(ele);
+          let list = document.getElementById("list");
+          list.innerHTML = ele;
+        }
+        console.log("end data");
+        CloseBox();
+      };
+
+      let edit = (id) => {
+        document.getElementById("small-box").style.display = "block";
+        document.getElementById("CloseBox").style.display = "inline";
+        let obj = data.find((res) => red.id === id);
+        document.getElementById("task").value = obj.task;
+        document.getElementById("taskpriority").value = obj.taskpriority;
+        document.getElementById("status").value = obj.status;
+        document.getElementById("lastdate").value = obj.lastdate;
+      };
+
+      let OpenBox = () => {
+        var open = document.getElementById("small-box");
+        open.style.display = "block";
+        var close2 = document.getElementById("CloseBox");
+        close2.style.display = "inline";
+      };
+
+      let deleteTask = (id) => {
+        data.splice(id, 1);
+        readAllData();
+      };
+
+      let CloseBox = () => {
+        var close1 = document.getElementById("small-box");
+        close1.style.display = "none";
+        var close2 = document.getElementById("CloseBox");
+        close2.style.display = "none";
+      };
+    </script>
+  </body>
+</html>

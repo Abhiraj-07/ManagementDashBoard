@@ -1,0 +1,43 @@
+*{
+    text-transform: capitalize;
+}
+body {
+  background-color: #d1e2c0;
+}
+.task-manager {
+
+    max-width: 100vw;
+    margin-top: 70px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.title {
+  color: #458703;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: -200px;
+}
+#person {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 80px;
+  height: 80px;
+  background-color: green;
+}
+.task-bar{
+    padding: 20px;
+    border: 2px solid green;
+    margin-top: 20px;
+    width: 90VW;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
