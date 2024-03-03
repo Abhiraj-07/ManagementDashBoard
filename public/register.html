@@ -55,11 +55,25 @@
 
     <script>
       let craeteuser = () => {
-        let emailuser = document.getElementById("email");
-        let passworduser = document.getElementById("psw");
 
-        localStorage.setItem("password", passworduser);
-        localStorage.setItem("email", emailuser);
+        window.onbeforeunload = function (e) {
+          // don't do it!
+          e.preventDefault();
+        };
+
+
+        let emailuser = document.getElementById("email").value;
+        let passworduser = document.getElementById("psw").value;
+        let data = [{
+          password: passworduser,
+          email: emailuser
+
+        }]
+        console.log(data);
+
+        localStorage.setItem("data", JSON.stringify((data)));
+        window.location.href = "http://localhost:3000";
+        window.location.reload();
         
       };
     </script>

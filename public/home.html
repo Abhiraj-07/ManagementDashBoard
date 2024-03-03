@@ -34,7 +34,7 @@
               <input type="date" id="lastdate" name="lastdate" /><br />
               <label for="status">Status :</label><br />
               <input type="text" id="status" name="status" /><br />
-              <input type="submit"/>
+              <input type="submit" />
             </form>
           </div>
         </div>
@@ -68,20 +68,17 @@
       <img src="images/personlogo.webp" alt="" srcset="" />
     </div>
     <script>
-      let data = [
-        {
-          id: 10,
-          task: "task",
-          taskpriority: 2,
-          status: "ongoing",
-        },
-      ];
+      let data = [];
       let createTask = () => {
+        window.onbeforeunload = function (e) {
+          // don't do it!
+          e.preventDefault();
+        };
         console.log("started create task ");
-        let usertask = document.getElementById("task");
-        let usertaskpriority = document.getElementById("taskpriority");
-        let userstatus = document.getElementById("status");
-        let userlastdate = document.getElementById("lastdate");
+        let usertask = document.getElementById("task").value;
+        let usertaskpriority = document.getElementById("taskpriority").value;
+        let userstatus = document.getElementById("status").value;
+        let userlastdate = document.getElementById("lastdate").value;
         let object = {
           id: 2,
           taskpriority: usertaskpriority,
@@ -91,34 +88,35 @@
         };
         console.log(object);
         data.push(object);
+        localStorage.setItem("object", JSON.stringify(data));
+        console.log("create task  end");
         readAllData();
         CloseBox();
       };
       let readAllData = () => {
         console.log("read data");
         let object = localStorage.getItem("object");
-        if (object === null) {
-          console.log("empty");
-
-          let list = (document.getElementById("list").innerHTML =
-            "<li>Empty </li>");
+        console.log(typeof object + "  =   object type");
+        let list = document.getElementById("list");
+        if (object == null) {
+          list.innerHTML = "<li>Empty </li>";
         } else {
           let objData = JSON.parse(object);
+          console.log(typeof objData + "  =   object type");
+
+          console.log(" objectdata " + objData);
           let ele = " ";
-          objData.map((record) => {
-            ele +
-              `<li>
-            <span>${record.priority}</span>
+
+          for (const record of objData) {
+            const listItem = document.createElement("li");
+            listItem.innerHTML = ` <span>${record.priority}</span>
             <span>${record.task}</span>
             <span class="status">${record.status}</span>
             <span class="date">${record.lastdate}</span>
             <span class="button" onclick={edit(${record.id})} >Edit</span>
-            <span class="button" onclick={deleteTask(${record.id})} >Delete<span>
-          </li>`;
-          });
-          console.log(ele);
-          let list = document.getElementById("list");
-          list.innerHTML = ele;
+            <span class="button" onclick={deleteTask(${record.id})} >Delete<span>`;
+            list.appendChild(listItem);
+          }
         }
         console.log("end data");
         CloseBox();
@@ -127,7 +125,7 @@
       let edit = (id) => {
         document.getElementById("small-box").style.display = "block";
         document.getElementById("CloseBox").style.display = "inline";
-        let obj = data.find((res) => red.id === id);
+        let obj = data.find((res) => res.id === id);
         document.getElementById("task").value = obj.task;
         document.getElementById("taskpriority").value = obj.taskpriority;
         document.getElementById("status").value = obj.status;

@@ -52,20 +52,26 @@
       localStorage.setItem("password", "");
       localStorage.setItem("email", "");
       let login = () => {
+        window.onbeforeunload = function (e) {
+          // don't do it!
+          e.preventDefault();
+        };
+        console.log("LOgin started");
         let password = localStorage.getItem("password");
         let email = localStorage.getItem("email");
-        let passworduser = document.getElementById("email");
-        let emailuser = document.getElementById("password");
+        let passworduser = document.getElementById("email").value;
+        let emailuser = document.getElementById("password").value;
 
-        console.log(password.isString());
-        console.log(email.isString());
-        console.log(passworduser.isString());
-        console.log(emailuser.isString());
+        if (password == passworduser && email == emailuser) {
+          console.log("if part ");
 
-        // if (password == passworduser && email == emailuser) {
-        //   window.location.href = "http://localhost:3000";
-
-        // }
+          window.location.href = "http://localhost:3000";
+        } else {
+          console.log("else part");
+          window.location.href = "http://localhost:3000/register";
+          console.log("completed");
+          window.location.reload();
+        }
       };
     </script>
   </body>
