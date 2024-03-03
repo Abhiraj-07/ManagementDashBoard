@@ -103,10 +103,7 @@
         } else {
           let objData = JSON.parse(object);
           console.log(typeof objData + "  =   object type");
-
           console.log(" objectdata " + objData);
-          let ele = " ";
-
           for (const record of objData) {
             const listItem = document.createElement("li");
             listItem.innerHTML = ` <span>${record.priority}</span>
@@ -130,6 +127,11 @@
         document.getElementById("taskpriority").value = obj.taskpriority;
         document.getElementById("status").value = obj.status;
         document.getElementById("lastdate").value = obj.lastdate;
+
+        let objData = JSON.parse(object);
+        let newobject = _.remove(objData, function (nv) {
+          return nv.id === id;
+        });
       };
 
       let OpenBox = () => {
@@ -140,7 +142,11 @@
       };
 
       let deleteTask = (id) => {
-        data.splice(id, 1);
+        
+        let objData = JSON.parse(object);
+        let newobject = _.remove(objData, function (nv) {
+          return nv.id === id;
+        });
         readAllData();
       };
 
